@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'feature/lab', url: 'https://github.com/adithep-bm/simple-express-app.git'
+                git branch: 'main', url: 'https://github.com/adithep-bm/simple-express-app.git'
             }
         }
 
