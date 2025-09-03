@@ -36,3 +36,15 @@ app.get("/about", (req, res) => {
   res.send("About page");
 });
 
+// ฟังก์ชันบวกเลขสองจำนวน
+function addNumbers(a, b) {
+  return a + b;
+}
+
+// API route สำหรับบวกเลข
+app.get("/add", (req, res) => {
+  const a = parseInt(req.query.a) || 0;
+  const b = parseInt(req.query.b) || 0;
+  const result = addNumbers(a, b);
+  res.send(`ผลรวมของ ${a} และ ${b} คือ ${result}`);
+});
