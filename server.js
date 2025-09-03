@@ -35,15 +35,18 @@ app.get("/", (req, res) => {
 app.get("/about", (req, res) => {
   res.send("About page");
 });
-// ฟังก์ชันบวกเลขสองจำนวน (code smell: ไม่ตรวจสอบชนิดข้อมูล)
+
+// ฟังก์ชันบวกเลขสองจำนวน (code smell: ใช้ global variable, ไม่ตรวจสอบชนิดข้อมูล)
+let lastResult = 0;
 function addNumbers(a, b) {
-  return a + b;
+  lastResult = a + b;
+  return lastResult;
 }
 
-// API route สำหรับบวกเลข (bug: ไม่ handle error, code smell: hardcode response)
+// API route สำหรับบวกเลข (code smell: hardcode response, ไม่ handle error)
 app.get("/add", (req, res) => {
   const a = req.query.a;
   const b = req.query.b;
   const result = addNumbers(a, b);
-  res.send("ผลรวมคือ " + result);
+  res.send("ผลรวมคือ " + result + ". Last result: " + lastResult);
 });
