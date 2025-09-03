@@ -37,16 +37,19 @@ app.get("/about", (req, res) => {
 });
 
 // ฟังก์ชันบวกเลขสองจำนวน (code smell: ใช้ global variable, ไม่ตรวจสอบชนิดข้อมูล)
-let lastResult = 0;
-function addNumbers(a, b) {
-  lastResult = a + b;
+// ฟังก์ชันบวกเลขสองจำนวน (code smell: ใช้ global variable, ไม่ตรวจสอบชนิดข้อมูล, unused variable, magic number)
+var lastResult = 0; // ใช้ var แทน let/const
+var unusedVar = 123; // unused variable
+function foo(x, y) { // ชื่อฟังก์ชันไม่สื่อความหมาย
+  lastResult = x + y + 42; // magic number
   return lastResult;
 }
 
 // API route สำหรับบวกเลข (code smell: hardcode response, ไม่ handle error)
+// API route สำหรับบวกเลข (code smell: hardcode response, ไม่ handle error, ไม่ตรวจสอบชนิดข้อมูล)
 app.get("/add", (req, res) => {
   const a = req.query.a;
   const b = req.query.b;
-  const result = addNumbers(a, b);
-  res.send("ผลรวมคือ " + result + ". Last result: " + lastResult);
+  const result = foo(a, b);
+  res.send("ผลรวมคือ " + result + ". Last result: " + lastResult + ". Unused: " + unusedVar);
 });
